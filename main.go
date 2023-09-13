@@ -1,7 +1,7 @@
 package main
 import (
 	"log"
-	"fmt"
+	//"fmt"
 	"os"
 	"strings"
 	"strconv"
@@ -10,17 +10,10 @@ import (
 	"context"
 
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
 	pb "github.com/BeerJob/tdist/proto"
 
 )
 func main(){
-	conn, err := grpc.Dial(target:"ip", grpc.WithInsecure())
-	if err != nil{
-		panic("cannot connect with the server!")
-	}
-	defer conn.Close()
-	cliente := pb.NewServidorRegionalClient(conn)
 	rand.Seed(time.Now().UnixNano())
 	content, err := os.ReadFile("parametros_de_inicio.txt")
 	if err != nil{
@@ -30,9 +23,89 @@ func main(){
 	iLimit, err := strconv.Atoi(rContent[0])
 	sLimit, err := strconv.Atoi(strings.SplitN(rContent[1], "\n", 2)[0])
 	amount, err := strconv.Atoi(strings.SplitN(rContent[1], "\n", 2)[1])
-	for i:=0; i<amount; i++{
+	if amount==-1{
+		amount = 100000
+	}
+	for i:=1; i<=amount; i++{
+		created := rand.Intn(sLimit-iLimit+1)+iLimit
+		if amount==100000{
+			log.Printf("Generacion %d/infinito", i)
+		}else{
+			log.Printf("Generacion %d/%d", i, amount)
+		}
+		conn, err := grpc.Dial("adr: '172.20.0.1:50051'", grpc.WithInsecure())
+		if err != nil{
+			panic("cannot connect with the server!")
+		}
+		defer conn.Close()
+		cliente := pb.NewServidorRegionalClient(conn)
 		ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 		defer cancel()
-		fmt.Println(rand.Intn(sLimit-iLimit+1)+iLimit)
+		r, err := cliente.CuposDisponibles(ctx, &pb.Cupo{Cupos: strconv.Itoa(created)})
+		if err != nil{
+			log.Fatal("Todo mal")
+		}
+		log.Printf("Respuesta de mensaje sincrono: %s", r.Ok)
+		/*
+		conn, err = grpc.Dial("adr: 'ip2:50501'", grpc.WithInsecure())
+		if err != nil{
+			panic("cannot connect with the server!")
+		}
+		defer conn.Close()
+		cliente = pb.NewServidorRegionalClient(conn)
+		ctx, cancel = context.WithTimeout(context.Background(), time.Second)
+		defer cancel()
+		r, err = cliente.CuposDisponibles(ctx, &pb.Cupo{Cupos: strconv.Itoa(created)})
+		if err != nil{
+			log.Fatal("Todo mal")
+		}
+		log.Printf("Respuesta de mensaje sincrono: %s", r.Ok)
+		*/
+		//Codigo de la cola rabbit
+		recibido := 3
+		inscritos := 0
+		if amount-recibido < 0{
+			inscritos = -(amount-recibido)
+			amount = 0
+		}else{
+			amount = amount-recibido
+		}
+		conn, err = grpc.Dial("adr: '172.20.0.1:50051'", grpc.WithInsecure())
+		if err != nil{
+			panic("cannot connect with the server!")
+		}
+		defer conn.Close()
+		cliente = pb.NewServidorRegionalClient(conn)
+		ctx, cancel = context.WithTimeout(context.Background(), time.Second)
+		defer cancel()
+		r, err = cliente.CuposRechazados(ctx, &pb.Rechazado{Rechazados: strconv.Itoa(inscritos)})
+		if err != nil{
+			log.Fatal("Todo mal")
+		}
+		log.Printf("Respuesta de mensaje sincrono: %s", r.Ok)
+		//Codigo cola rabbit
+		/*
+		recibido = 3
+		inscritos = 0
+		if amount-recibido < 0{
+			inscritos = -(amount-recibido)
+			amount = 0
+		}else{
+			amount = amount-recibido
+		}
+		conn, err = grpc.Dial("adr: 'ip2:50501'", grpc.WithInsecure())
+		if err != nil{
+			panic("cannot connect with the server!")
+		}
+		defer conn.Close()
+		cliente = pb.NewServidorRegionalClient(conn)
+		ctx, cancel = context.WithTimeout(context.Background(), time.Second)
+		defer cancel()
+		r, err = cliente.CuposRechazados(ctx, &pb.Rechazado{Rechazados: strconv.Itoa(inscritos)})
+		if err != nil{
+			log.Fatal("Todo mal")
+		}
+		log.Printf("Respuesta de mensaje sincrono: %s", r.Ok)
+		*/
 	}
 }
