@@ -1,1 +1,20 @@
+syntax="proto3";
+option go_package = "github.com/BeerJob/tdist";
+package grpc;
 
+service ServidorRegional{
+    rpc CuposDisponibles (Cupo) returns (Recepcion) {}
+    rpc CuposRechazados (Rechazado) returns (Recepcion) {}
+}
+
+message Cupo{
+    string cupos = 1;
+}
+
+message Recepcion{
+    string ok = 1;
+}
+
+message Rechazado{
+    string rechazados = 1;
+}
