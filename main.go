@@ -10,8 +10,7 @@ import (
 	"context"
 
 	"google.golang.org/grpc"
-	pb "github.com/BeeJobDev/ddist2/proto"
-
+	pb "github.com/BeerJob/tdist/proto"
 )
 func main(){
 	rand.Seed(time.Now().UnixNano())

@@ -1,9 +1,10 @@
-module github.com/BeeJobDev/ddist2
+module github.com/BeerJob/tdist
 
 go 1.18
 
 require (
 	github.com/golang/protobuf v1.5.3 // indirect
+	github.com/BeeJobDev/ddist2 v0.0.0-20230913203535-dc07b6e9434b // indirect
 	golang.org/x/net v0.12.0 // indirect
 	golang.org/x/sys v0.10.0 // indirect
 	golang.org/x/text v0.11.0 // indirect
