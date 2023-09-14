@@ -10,7 +10,7 @@ import (
 	"context"
 
 	"google.golang.org/grpc"
-	pb "github.com/BeerJob/tdist/proto"
+	pb "github.com/BeeJobDev/ddist2/proto"
 
 )
 func main(){

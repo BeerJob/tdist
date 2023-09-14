@@ -1,4 +1,4 @@
-module github.com/BeerJob/tdist
+module github.com/BeeJobDev/ddist2
 
 go 1.18
 
