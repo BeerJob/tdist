@@ -32,7 +32,7 @@ func main(){
 		}else{
 			log.Printf("Generacion %d/%d", i, amount)
 		}
-		conn, err := grpc.Dial("adr: '173.20.0.1:50051'", grpc.WithInsecure())
+		conn, err := grpc.Dial("adr: '10.6.46.107:50051'", grpc.WithInsecure())
 		if err != nil{
 			panic("cannot connect with the server!")
 		}
@@ -69,7 +69,7 @@ func main(){
 		}else{
 			amount = amount-recibido
 		}
-		conn, err = grpc.Dial("adr: '173.20.0.1:50051'", grpc.WithInsecure())
+		conn, err = grpc.Dial("adr: '10.6.46.107:50051'", grpc.WithInsecure())
 		if err != nil{
 			panic("cannot connect with the server!")
 		}
