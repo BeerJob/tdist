@@ -69,7 +69,7 @@ func main(){
 		}else{
 			amount = amount-recibido
 		}
-		conn, err = grpc.Dial("adr: '10.6.46.107:50051'", grpc.WithInsecure())
+		conn, err = grpc.Dial("10.6.46.107:50051", grpc.WithInsecure())
 		if err != nil{
 			panic("cannot connect with the server!")
 		}
