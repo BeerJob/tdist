@@ -95,9 +95,9 @@ func main(){
 		recibido := 0
 		noinscritos := 0
 		timer := time.NewTicker(10*time.Second)
-		
+		/*
 		//Servidor1
-		connentionRabbitMQ, err := amqp.Dial("ampq//guest:guest@10.6.46.109:5672")
+		connentionRabbitMQ, err := amqp.Dial("ampq//guest:guest@10.6.46.109:8082")
 		if err != nil{
 			log.Print("No se pudo conectar a la cola")
 		}
@@ -144,7 +144,7 @@ func main(){
 		}
 
 		//Servidor2
-		connentionRabbitMQ, err = amqp.Dial("ampq//guest:guest@10.6.46.109:5672")
+		connentionRabbitMQ, err = amqp.Dial("ampq//guest:guest@10.6.46.109:8082")
 		if err != nil{
 			log.Print("No se pudo conectar a la cola")
 		}
@@ -188,9 +188,9 @@ func main(){
 		if err != nil{
 			log.Print("No hay respuesta del Servidor2")
 		}
-
+		*/
 		//Servidor3
-		connentionRabbitMQ, err = amqp.Dial("ampq//guest:guest@10.6.46.109:5672")
+		connentionRabbitMQ, err = amqp.Dial("ampq//guest:guest@10.6.46.109:8082")
 		if err != nil{
 			log.Print("No se pudo conectar a la cola")
 		}
@@ -234,9 +234,9 @@ func main(){
 		if err != nil{
 			log.Print("No hay respuesta del Servidor3")
 		}
-
+		/*
 		//Servidor4
-		connentionRabbitMQ, err = amqp.Dial("ampq//guest:guest@10.6.46.109:5672")
+		connentionRabbitMQ, err = amqp.Dial("ampq//guest:guest@10.6.46.109:8082")
 		if err != nil{
 			log.Print("No se pudo conectar a la cola")
 		}
@@ -280,5 +280,6 @@ func main(){
 		if err != nil{
 			log.Print("No hay respuesta del Servidor4")
 		}
+		*/
 	}
 }
