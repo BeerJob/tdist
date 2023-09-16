@@ -117,7 +117,7 @@ func main(){
 				}
 				if ok{
 					log.Printf("Mensaje asincrono de Servidor1 leido")
-					recibido = msg.Body
+					recibido = strconv.Atoi(string(msg.Body))
 				}
 			}
 		}
@@ -164,7 +164,7 @@ func main(){
 				}
 				if ok{
 					log.Printf("Mensaje asincrono de Servidor1 leido")
-					recibido = msg.Body
+					recibido = strconv.Atoi(string(msg.Body))
 				}
 			}
 		}
@@ -210,7 +210,7 @@ func main(){
 				}
 				if ok{
 					log.Printf("Mensaje asincrono de Servidor1 leido")
-					recibido = msg.Body
+					recibido = strconv.Atoi(string(msg.Body))
 				}
 			}
 		}
@@ -256,7 +256,7 @@ func main(){
 				}
 				if ok{
 					log.Printf("Mensaje asincrono de Servidor1 leido")
-					recibido = msg.Body
+					recibido = strconv.Atoi(string(msg.Body))
 				}
 			}
 		}
