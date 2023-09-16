@@ -8,7 +8,7 @@ import (
 	"time"
 	"context"
 
-	"github.com/streadway/ampq"
+	"github.com/streadway/amqp"
 	"google.golang.org/grpc"
 	pb "github.com/BeerJob/tdist/proto"
 )
@@ -117,7 +117,7 @@ func main(){
 				}
 				if ok{
 					log.Printf("Mensaje asincrono de Servidor1 leido")
-					recibido = msg.body
+					recibido = msg.Body
 				}
 			}
 		}
@@ -149,7 +149,7 @@ func main(){
 			log.Print("No se pudo conectar a la cola")
 		}
 		defer connentionRabbitMQ.Close()
-		channel, err := connentionRabbitMQ.Channel()
+		channel, err = connentionRabbitMQ.Channel()
 		if err != nil{
 			log.Print("No se pudo crear canal en la cola")
 		}
@@ -164,7 +164,7 @@ func main(){
 				}
 				if ok{
 					log.Printf("Mensaje asincrono de Servidor1 leido")
-					recibido = msg.body
+					recibido = msg.Body
 				}
 			}
 		}
@@ -195,7 +195,7 @@ func main(){
 			log.Print("No se pudo conectar a la cola")
 		}
 		defer connentionRabbitMQ.Close()
-		channel, err := connentionRabbitMQ.Channel()
+		channel, err = connentionRabbitMQ.Channel()
 		if err != nil{
 			log.Print("No se pudo crear canal en la cola")
 		}
@@ -210,7 +210,7 @@ func main(){
 				}
 				if ok{
 					log.Printf("Mensaje asincrono de Servidor1 leido")
-					recibido = msg.body
+					recibido = msg.Body
 				}
 			}
 		}
@@ -241,7 +241,7 @@ func main(){
 			log.Print("No se pudo conectar a la cola")
 		}
 		defer connentionRabbitMQ.Close()
-		channel, err := connentionRabbitMQconn.Channel()
+		channel, err = connentionRabbitMQ.Channel()
 		if err != nil{
 			log.Print("No se pudo crear canal en la cola")
 		}
@@ -256,7 +256,7 @@ func main(){
 				}
 				if ok{
 					log.Printf("Mensaje asincrono de Servidor1 leido")
-					recibido = msg.body
+					recibido = msg.Body
 				}
 			}
 		}
