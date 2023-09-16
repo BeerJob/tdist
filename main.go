@@ -190,12 +190,12 @@ func main(){
 		}
 		*/
 		//Servidor3
-		connentionRabbitMQ, err = amqp.Dial("ampq//guest:guest@10.6.46.109:8082")
+		connentionRabbitMQ, err := amqp.Dial("ampq//guest:guest@10.6.46.109:8082")
 		if err != nil{
 			log.Print("No se pudo conectar a la cola")
 		}
 		defer connentionRabbitMQ.Close()
-		channel, err = connentionRabbitMQ.Channel()
+		channel, err := connentionRabbitMQ.Channel()
 		if err != nil{
 			log.Print("No se pudo crear canal en la cola")
 		}
