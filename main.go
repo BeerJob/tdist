@@ -8,7 +8,7 @@ import (
 	"time"
 	"context"
 
-	"github.com/streadway/amqp"
+	//"github.com/streadway/amqp"
 	"google.golang.org/grpc"
 	pb "github.com/BeerJob/tdist/proto"
 )
@@ -26,6 +26,10 @@ func main(){
 		amount = 1000000
 	}
 	for i:=1; i<=amount; i++{
+		r1:=0
+		r2:=0
+		r3:=0
+		r4:=0
 		created := rand.Intn(sLimit-iLimit+1)+iLimit
 		if amount==1000000{
 			log.Printf("Generacion %d/infinito", i)
@@ -45,8 +49,10 @@ func main(){
 		if err != nil{
 			log.Print("No hay respuesta del Servidor1")
 		}else{
-			log.Printf("Respuesta sincrona del Servidor1: %s", r.Ok)
+			r1, err = strconv.Atoi(r.Ok)
 		}
+		//log.Printf("Respuesta sincrona del Servidor1: %s", r.Ok)
+
 		//Servidor2
 		conn, err = grpc.Dial("10.6.46.141:8080", grpc.WithInsecure())
 		if err != nil{
@@ -60,8 +66,10 @@ func main(){
 		if err != nil{
 			log.Print("No hay respuesta del Servidor2")
 		}else{
-			log.Printf("Respuesta sincrona del Servidor2: %s", r.Ok)
+			r2, err = strconv.Atoi(r.Ok)
 		}
+		//	log.Printf("Respuesta sincrona del Servidor2: %s", r.Ok)
+
 		//Servidor3
 		conn, err = grpc.Dial("10.6.46.109:8080", grpc.WithInsecure())
 		if err != nil{
@@ -75,8 +83,10 @@ func main(){
 		if err != nil{
 			log.Print("No hay respuesta del Servidor3")
 		}else{
-			log.Printf("Respuesta sincrona del Servidor3: %s", r.Ok)
+			r3, err = strconv.Atoi(r.Ok)
 		}
+		//	log.Printf("Respuesta sincrona del Servidor3: %s", r.Ok)
+
 		//Servidor4
 		conn, err = grpc.Dial("10.6.46.110:8080", grpc.WithInsecure())
 		if err != nil{
@@ -90,13 +100,15 @@ func main(){
 		if err != nil{
 			log.Print("No hay respuesta del Servidor4")
 		}else{
-			log.Printf("Respuesta sincrona del Servidor4: %s", r.Ok)
+			r4, err = strconv.Atoi(r.Ok)
+
 		}
-		recibido := 0
+		//	log.Printf("Respuesta sincrona del Servidor4: %s", r.Ok)
+
 		noinscritos := 0
-		timer := time.NewTicker(10*time.Second)
-		/*
+		//timer := time.NewTicker(10*time.Second)
 		//Servidor1
+		/*
 		connentionRabbitMQ, err := amqp.Dial("ampq//guest:guest@10.6.46.109:8082")
 		if err != nil{
 			log.Print("No se pudo conectar a la cola")
@@ -121,15 +133,17 @@ func main(){
 				}
 			}
 		}
+		*/
 		
-		if created-recibido < 0{
-			noinscritos = -(created-recibido)
+		log.Print("Mensaje asincrono del Servidor1 leido")
+		if created-r1 < 0{
+			noinscritos = -(created-r1)
 			created=0
 		}else{
 			noinscritos=0
-			created = created-recibido
+			created = created-r1
 		}
-		log.Printf("Se inscribieron %d cupos del Servidor1", recibido-noinscritos)
+		log.Printf("Se inscribieron %d cupos del Servidor1", r1-noinscritos)
 		conn, err = grpc.Dial("10.6.46.140:8080", grpc.WithInsecure())
 		if err != nil{
 			log.Print("No se puede conectar con Servidor1")
@@ -144,6 +158,7 @@ func main(){
 		}
 
 		//Servidor2
+		/*
 		connentionRabbitMQ, err = amqp.Dial("ampq//guest:guest@10.6.46.109:8082")
 		if err != nil{
 			log.Print("No se pudo conectar a la cola")
@@ -168,14 +183,16 @@ func main(){
 				}
 			}
 		}
-		if created-recibido < 0{
-			noinscritos = -(created-recibido)
+		*/
+		log.Print("Mensaje asincrono del Servidor2 leido")
+		if created-r2 < 0{
+			noinscritos = -(created-r2)
 			created=0
 		}else{
 			noinscritos=0
-			created = created-recibido
+			created = created-r2
 		}
-		log.Printf("Se inscribieron %d cupos del Servidor2", recibido-noinscritos)
+		log.Printf("Se inscribieron %d cupos del Servidor2", r2-noinscritos)
 		conn, err = grpc.Dial("10.6.46.141:8080", grpc.WithInsecure())
 		if err != nil{
 			log.Print("No se puede conectar con Servidor2")
@@ -188,8 +205,8 @@ func main(){
 		if err != nil{
 			log.Print("No hay respuesta del Servidor2")
 		}
-		*/
 		//Servidor3
+		/*
 		connentionRabbitMQ, err := amqp.Dial("ampq//guest:guest@10.6.46.109:8082")
 		if err != nil{
 			log.Print("No se pudo conectar a la cola")
@@ -214,14 +231,16 @@ func main(){
 				}
 			}
 		}
-		if created-recibido < 0{
-			noinscritos = -(created-recibido)
+		*/
+		log.Print("Mensaje asincrono del Servidor3 leido")
+		if created-r3 < 0{
+			noinscritos = -(created-r3)
 			created=0
 		}else{
 			noinscritos=0
-			created = created-recibido
+			created = created-r3
 		}
-		log.Printf("Se inscribieron %d cupos del Servidor3", recibido-noinscritos)
+		log.Printf("Se inscribieron %d cupos del Servidor3", r3-noinscritos)
 		conn, err = grpc.Dial("10.6.46.109:8080", grpc.WithInsecure())
 		if err != nil{
 			log.Print("No se puede conectar con Servidor3")
@@ -234,8 +253,9 @@ func main(){
 		if err != nil{
 			log.Print("No hay respuesta del Servidor3")
 		}
-		/*
+
 		//Servidor4
+		/*
 		connentionRabbitMQ, err = amqp.Dial("ampq//guest:guest@10.6.46.109:8082")
 		if err != nil{
 			log.Print("No se pudo conectar a la cola")
@@ -260,14 +280,16 @@ func main(){
 				}
 			}
 		}
-		if created-recibido < 0{
-			noinscritos = -(created-recibido)
+		*/
+		log.Print("Mensaje asincrono del Servidor4 leido")
+		if created-r4 < 0{
+			noinscritos = -(created-r4)
 			created=0
 		}else{
 			noinscritos=0
-			created = created-recibido
+			created = created-r4
 		}
-		log.Printf("Se inscribieron %d cupos del Servidor4", recibido-noinscritos)
+		log.Printf("Se inscribieron %d cupos del Servidor4", r4-noinscritos)
 		conn, err = grpc.Dial("10.6.46.110:8080", grpc.WithInsecure())
 		if err != nil{
 			log.Print("No se puede conectar con Servidor4")
@@ -280,6 +302,5 @@ func main(){
 		if err != nil{
 			log.Print("No hay respuesta del Servidor4")
 		}
-		*/
 	}
 }

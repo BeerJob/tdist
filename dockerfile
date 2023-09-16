@@ -10,7 +10,7 @@ COPY parametros_de_inicio.txt .
 RUN apt-get update
 RUN export PATH=$PATH:/usr/local/go/bin
 RUN apt-get install -y protobuf-compiler
-RUN go get github.com/streadway/amqp
+#RUN go get github.com/streadway/amqp
 RUN go get google.golang.org/grpc
 RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
 RUN go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
