@@ -36,6 +36,7 @@ func main(){
 		}else{
 			log.Printf("Generacion %d/%d", i, amount)
 		}
+		log.Printf("En esta generacion se crearon %d cupos", created)
 		//Servidor 1
 		conn, err := grpc.Dial("10.6.46.140:8080", grpc.WithInsecure())
 		if err != nil{
