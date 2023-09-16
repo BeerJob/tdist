@@ -97,12 +97,12 @@ func main(){
 		timer := time.NewTicker(10*time.Second)
 		
 		//Servidor1
-		conn, err = amqp.Dial("ampq//guest:guest@10.6.46.109:5672")
+		connentionRabbitMQ, err := amqp.Dial("ampq//guest:guest@10.6.46.109:5672")
 		if err != nil{
 			log.Print("No se pudo conectar a la cola")
 		}
-		defer conn.Close()
-		channel, err := conn.Channel()
+		defer connentionRabbitMQ.Close()
+		channel, err := connentionRabbitMQ.Channel()
 		if err != nil{
 			log.Print("No se pudo crear canal en la cola")
 		}
@@ -117,7 +117,7 @@ func main(){
 				}
 				if ok{
 					log.Printf("Mensaje asincrono de Servidor1 leido")
-					recibidos = msg.body
+					recibido = msg.body
 				}
 			}
 		}
@@ -129,7 +129,7 @@ func main(){
 			noinscritos=0
 			created = created-recibido
 		}
-		log.Printf("Se inscribieron %d cupos del Servidor1", recibidos-noinscritos)
+		log.Printf("Se inscribieron %d cupos del Servidor1", recibido-noinscritos)
 		conn, err = grpc.Dial("10.6.46.140:8080", grpc.WithInsecure())
 		if err != nil{
 			log.Print("No se puede conectar con Servidor1")
@@ -144,12 +144,12 @@ func main(){
 		}
 
 		//Servidor2
-		conn, err = amqp.Dial("ampq//guest:guest@10.6.46.109:5672")
+		connentionRabbitMQ, err = amqp.Dial("ampq//guest:guest@10.6.46.109:5672")
 		if err != nil{
 			log.Print("No se pudo conectar a la cola")
 		}
-		defer conn.Close()
-		channel, err := conn.Channel()
+		defer connentionRabbitMQ.Close()
+		channel, err := connentionRabbitMQ.Channel()
 		if err != nil{
 			log.Print("No se pudo crear canal en la cola")
 		}
@@ -164,7 +164,7 @@ func main(){
 				}
 				if ok{
 					log.Printf("Mensaje asincrono de Servidor1 leido")
-					recibidos = msg.body
+					recibido = msg.body
 				}
 			}
 		}
@@ -175,7 +175,7 @@ func main(){
 			noinscritos=0
 			created = created-recibido
 		}
-		log.Printf("Se inscribieron %d cupos del Servidor2", recibidos-noinscritos)
+		log.Printf("Se inscribieron %d cupos del Servidor2", recibido-noinscritos)
 		conn, err = grpc.Dial("10.6.46.141:8080", grpc.WithInsecure())
 		if err != nil{
 			log.Print("No se puede conectar con Servidor2")
@@ -190,12 +190,12 @@ func main(){
 		}
 
 		//Servidor3
-		conn, err = amqp.Dial("ampq//guest:guest@10.6.46.109:5672")
+		connentionRabbitMQ, err = amqp.Dial("ampq//guest:guest@10.6.46.109:5672")
 		if err != nil{
 			log.Print("No se pudo conectar a la cola")
 		}
-		defer conn.Close()
-		channel, err := conn.Channel()
+		defer connentionRabbitMQ.Close()
+		channel, err := connentionRabbitMQ.Channel()
 		if err != nil{
 			log.Print("No se pudo crear canal en la cola")
 		}
@@ -210,7 +210,7 @@ func main(){
 				}
 				if ok{
 					log.Printf("Mensaje asincrono de Servidor1 leido")
-					recibidos = msg.body
+					recibido = msg.body
 				}
 			}
 		}
@@ -221,7 +221,7 @@ func main(){
 			noinscritos=0
 			created = created-recibido
 		}
-		log.Printf("Se inscribieron %d cupos del Servidor3", recibidos-noinscritos)
+		log.Printf("Se inscribieron %d cupos del Servidor3", recibido-noinscritos)
 		conn, err = grpc.Dial("10.6.46.109:8080", grpc.WithInsecure())
 		if err != nil{
 			log.Print("No se puede conectar con Servidor3")
@@ -236,12 +236,12 @@ func main(){
 		}
 
 		//Servidor4
-		conn, err = amqp.Dial("ampq//guest:guest@10.6.46.109:5672")
+		connentionRabbitMQ, err = amqp.Dial("ampq//guest:guest@10.6.46.109:5672")
 		if err != nil{
 			log.Print("No se pudo conectar a la cola")
 		}
-		defer conn.Close()
-		channel, err := conn.Channel()
+		defer connentionRabbitMQ.Close()
+		channel, err := connentionRabbitMQconn.Channel()
 		if err != nil{
 			log.Print("No se pudo crear canal en la cola")
 		}
@@ -256,7 +256,7 @@ func main(){
 				}
 				if ok{
 					log.Printf("Mensaje asincrono de Servidor1 leido")
-					recibidos = msg.body
+					recibido = msg.body
 				}
 			}
 		}
@@ -267,7 +267,7 @@ func main(){
 			noinscritos=0
 			created = created-recibido
 		}
-		log.Printf("Se inscribieron %d cupos del Servidor4", recibidos-noinscritos)
+		log.Printf("Se inscribieron %d cupos del Servidor4", recibido-noinscritos)
 		conn, err = grpc.Dial("10.6.46.110:8080", grpc.WithInsecure())
 		if err != nil{
 			log.Print("No se puede conectar con Servidor4")
