@@ -89,7 +89,7 @@ func main(){
 		//	log.Printf("Respuesta sincrona del Servidor3: %s", r.Ok)
 
 		//Servidor4
-		conn, err = grpc.Dial("0.0.0.0:8080", grpc.WithInsecure())
+		conn, err = grpc.Dial("127.0.0.1:8080", grpc.WithInsecure())
 		if err != nil{
 			log.Print("No se pudo conectar con Servidor4!")
 		}
@@ -291,7 +291,7 @@ func main(){
 			created = created-r4
 		}
 		log.Printf("Se inscribieron %d cupos del Servidor4", r4-noinscritos)
-		conn, err = grpc.Dial("0.0.0.0:8080", grpc.WithInsecure())
+		conn, err = grpc.Dial("127.0.0.1:8080", grpc.WithInsecure())
 		if err != nil{
 			log.Print("No se puede conectar con Servidor4")
 		}
