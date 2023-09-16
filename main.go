@@ -32,7 +32,7 @@ func main(){
 		}else{
 			log.Printf("Generacion %d/%d", i, amount)
 		}
-		conn, err := grpc.Dial("adr: '10.6.46.107:50051'", grpc.WithInsecure())
+		conn, err := grpc.Dial("adr: '10.6.46.109:8080'", grpc.WithInsecure())
 		if err != nil{
 			panic("cannot connect with the server!")
 		}
@@ -63,13 +63,13 @@ func main(){
 		//Codigo de la cola rabbit
 		recibido := 3
 		inscritos := 0
-		if amount-recibido < 0{
-			inscritos = -(amount-recibido)
-			amount = 0
+		if created-recibido < 0{
+			inscritos = -(created-recibido)
+			created=0
 		}else{
-			amount = amount-recibido
+			created = amount-recibido
 		}
-		conn, err = grpc.Dial("10.6.46.107:50051", grpc.WithInsecure())
+		conn, err = grpc.Dial("10.6.46.109:8080", grpc.WithInsecure())
 		if err != nil{
 			panic("cannot connect with the server!")
 		}
@@ -84,13 +84,13 @@ func main(){
 		log.Printf("Respuesta de mensaje sincrono: %s", r.Ok)
 		//Codigo cola rabbit
 		/*
-		recibido = 3
-		inscritos = 0
-		if amount-recibido < 0{
-			inscritos = -(amount-recibido)
-			amount = 0
+		recibido := 3
+		inscritos := 0
+		if created-recibido < 0{
+			inscritos = -(created-recibido)
+			created=0
 		}else{
-			amount = amount-recibido
+			created = amount-recibido
 		}
 		conn, err = grpc.Dial("adr: 'ip2:50501'", grpc.WithInsecure())
 		if err != nil{
